@@ -1,12 +1,16 @@
 #VictorCase 03/2001#
-import serial,pygame,time
+import serial,pygame,time, sys
 from pygame.locals import *
 
 
-for i in range(1,45):
+for i in range(0,45):
 	try:
-		ser = serial.Serial('COM%d' % i ,9600)
-	except:
+		if sys.platform == 'windows':
+			ser = serial.Serial('COM%d' % i ,9600)
+		elif sys.platform == 'linux2':
+			ser = serial.Serial('/dev/ttyACM%d' %i, 9600)
+	except :
+		
 		print 'nao eh %d' % i
 		
 
