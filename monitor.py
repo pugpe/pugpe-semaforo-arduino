@@ -44,7 +44,7 @@ def git_commit_all(directory):
 
 def run_main(options):
     #Connect to Arduino
-    #arduino = Arduino()
+    arduino = Arduino()
     
     #Execute the test and get the output
     #Send the ouput to arduino
@@ -52,19 +52,18 @@ def run_main(options):
     test_file = test_file + '.py' if not test_file.endswith('.py') else test_file
     output =  commands.getoutput('python %s/%s' % (options.directory,test_file))
     if 'FAILED' in output or 'Traceback' in output or 'Error' in output:
-        #arduino.send_message(FAIL)
+        arduino.send_message(FAIL)
         print output
         print 'Test has failed.'
 
     else:
-        #arduino.send_message(PASS)
+        arduino.send_message(PASS)
         print output
         print 'Test has passed.'
 
     #if -c active, add, commit the files.
     if options.commit:
         git_commit_all(options.directory)
-    
 
 
 if __name__ == '__main__':
@@ -85,5 +84,3 @@ if __name__ == '__main__':
         parser.error('You must specifiy a valid test_file .py (-t parameter) !')
 
     run_main(options)
-    
-
