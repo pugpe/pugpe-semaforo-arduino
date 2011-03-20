@@ -33,7 +33,7 @@ def send_message(test_code):
     elif sys.platform == 'darwin':
         for i in range(0,500):
             try:
-                 arduino = serial.Serial('/dev/cu.usbmodem%d',9600)
+                 arduino = serial.Serial('/dev/cu.usbmodem%d' %i, 9600)
                  break
             except SerialException:
                  pass  
