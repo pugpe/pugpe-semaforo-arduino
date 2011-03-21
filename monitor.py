@@ -17,8 +17,13 @@ import commands
 import os
 from time import ctime
 import subprocess
+import pygame
+from pygame.locals import *
+
 
 __version__ = 0.1
+
+event_happened = False
 
 def git_commit_all(directory):
     """
@@ -42,10 +47,17 @@ def git_commit_all(directory):
         raise OSError(error)
 
 
-def run_main(options):
-    #Connect to Arduino
-    arduino = Arduino()
-    
+def key_handler():
+    global event_happened
+    for event in pygame.event.get():
+        if not hasattr(event,'key'): continue
+        if event.key  == K_ESCAPE: 
+            sys.exit(0)
+        elif event.key == K_SPACE and event.type == KEYDOWN:
+            event_happened = True
+            
+def main(options):
+    global event_happened
     #Execute the test and get the output
     #Send the ouput to arduino
     test_file = options.test_file
@@ -64,6 +76,24 @@ def run_main(options):
     #if -c active, add, commit the files.
     if options.commit:
         git_commit_all(options.directory)
+
+    event_happened = False
+
+
+def run_main(options):
+    #Connect to Arduino
+    arduino = Arduino()
+
+    #Initialize the main program
+    pygame.init()
+    windowsSurface = pygame.display.set_mode((640,480),0,32)
+    pygame.display.set_caption('Semaforo')
+
+    while True:
+        key_handler()
+        if event_happened:
+            main(options)
+
 
 
 if __name__ == '__main__':

@@ -16,7 +16,6 @@ from arduino_handler import *
 from pygame.locals import *
 
 
-
 if __name__ == '__main__':
     arduino = Arduino()
     
