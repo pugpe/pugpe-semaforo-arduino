@@ -45,7 +45,6 @@ class Arduino(object):
             PORTA = 5
             try:
             	 self.arduino = serial.Serial('COM%d' % PORTA, 9600)
-                 break
             except serial.SerialException:
             	 pass
         if not self.arduino:
