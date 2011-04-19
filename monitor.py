@@ -24,6 +24,8 @@ from pygame.locals import *
 __version__ = 0.1
 
 event_happened = False
+arduino = None
+
 
 def git_commit_all(directory):
     """
@@ -81,6 +83,7 @@ def main(options):
 
 
 def run_main(options):
+    global arduino
     #Connect to Arduino
     arduino = Arduino()
 
