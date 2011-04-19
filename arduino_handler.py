@@ -42,12 +42,12 @@ class Arduino(object):
                 except serial.serialutil.SerialException:
                      pass  
         else:
-            for i in range(0,45):
-                try:
-                     self.arduino = serial.Serial('COM%d' % i, 9600)
-                     break
-                except serial.SerialException:
-                     pass
+            PORTA = 5
+            try:
+            	 self.arduino = serial.Serial('COM%d' % PORTA, 9600)
+                 break
+            except serial.SerialException:
+            	 pass
         if not self.arduino:
             print 'ERRO: Arduino nao encontrado. Favor verificar a porta correta.'
             exit()
